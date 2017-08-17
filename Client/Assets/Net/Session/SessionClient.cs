@@ -98,7 +98,8 @@ namespace NetServer.Session
         {
             try
             {
-                socket.Send(packet.Pack());
+                byte[] t = packet.Pack();
+                socket.Send(t);
             }
             catch (Exception e)
             {

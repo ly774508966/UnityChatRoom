@@ -6,7 +6,7 @@ using System.Collections.Generic;
 /// </summary>
 public class ActionParameter
 {
-    Dictionary<string, object> container = new Dictionary<string, object>();
+    private Dictionary<string, object> container = new Dictionary<string, object>();
 
     public object this[string key]
     {
@@ -29,9 +29,17 @@ public class ActionParameter
     /// <summary>
     /// 获取值
     /// </summary>
-    public T GetValue<T>(string key)
+    public bool TryGetValue<T>(string key,ref T value)
     {
-        return (T)this[key];
+        if (container.ContainsKey(key))
+        {
+            value = (T)this[key];
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
 

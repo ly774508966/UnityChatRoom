@@ -20,15 +20,10 @@ namespace NetServer.Action
             return false;
         }
 
-        public override object Clone()
-        {
-            return new MessageTranspondAction();
-        }
-
         public override bool Process(ActionParameter parameter)
         {
             string message = Session.GetRemoteAddress() + ": " + parameter.GetValue<string>("message");
-            DynamicBuffer buffer = new DynamicBuffer(0);
+            DynamicBuffer buffer = new DynamicBuffer();
             buffer.WriteValue(message);
             DataPackage packet = new DataPackage(buffer, ActionType);
             foreach (var session in SessionClientPool.GetOnlineSession())

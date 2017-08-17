@@ -92,11 +92,12 @@ public class Main : MonoBehaviour
     /// </summary>
     private void CreateMessage(ActionParameter parameter)
     {
-        if (messageContent == null || messageTextPrefab == null)
+        string message = null;
+        if (messageContent == null || messageTextPrefab == null || !parameter.TryGetValue("message", ref message))
             return;
 
         Text messageText = Instantiate(messageTextPrefab);
-        messageText.text = parameter.GetValue<string>("message");
+        messageText.text = message;
 
         RectTransform messageRect = messageText.rectTransform;
         messageRect.SetParent(messageContent);

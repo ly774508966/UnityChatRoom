@@ -33,9 +33,11 @@ namespace NetServer.Action
 
         public override bool SendProcess(ActionParameter parameter)
         {
-            string message = parameter.GetValue<string>("message");
-            if (string.IsNullOrEmpty(message))
+            string message = null;
+            if (parameter.TryGetValue("message", ref message) && string.IsNullOrEmpty(message))
+            {
                 return false;
+            }
 
             Packet.Data.WriteValue(message);
             return true;

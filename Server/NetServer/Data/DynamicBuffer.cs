@@ -22,7 +22,7 @@ namespace NetServer.Data
         //缓存区字节数组的长度
         private int capacity;
 
-        public DynamicBuffer(int capacity)
+        public DynamicBuffer(int capacity = 1024)
         {
             buffer = new byte[capacity];
             this.capacity = capacity;

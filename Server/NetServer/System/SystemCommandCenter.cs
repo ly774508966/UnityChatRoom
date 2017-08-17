@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using NetServer.Action;
-using NetServer.System;
+using NetServer.NetSystem;
 
 namespace NetServer
 {

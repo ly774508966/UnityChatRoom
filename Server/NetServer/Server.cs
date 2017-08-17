@@ -16,24 +16,21 @@ namespace NetServer
         /// </summary>
         public Socket listen;
 
-        /// <summary>
-        /// 最大连接数
-        /// </summary>
-        public int maxSessionClient = 50;
+        public int maxClient = 50;
 
         /// <summary>
         /// 启动服务器
         /// </summary>
         public void StartServer(string host, int port)
         {
-            SessionClientPool.SetMaxSessionClient(maxSessionClient);
             listen = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             IPAddress ipAddress = IPAddress.Parse(host);
             IPEndPoint ipEndPoint = new IPEndPoint(ipAddress, port);
             listen.Bind(ipEndPoint);
-            listen.Listen(maxSessionClient);
+            listen.Listen(maxClient);
             listen.BeginAccept(AcceptCallBack, null);
             Console.WriteLine("服务器启动成功！");
+            SessionClientPool.SetMaxSessionClient(maxClient);
         }
 
         /// <summary>
@@ -43,19 +40,17 @@ namespace NetServer
         {
             try
             {
-                Socket socket = listen.EndAccept(ar);
-                SessionClient session = SessionClientPool.GetSessionClient();
-
-                if (session == null)
+                Socket _socket = listen.EndAccept(ar);
+                SessionClient _client = SessionClientPool.GetSessionClient();
+                if (_client != null)
                 {
-                    socket.Close();
-                    Console.WriteLine("警告：连接已满！");
+                    _client.Initialize(_socket);
+                    Console.WriteLine("客户端连接 [{0}]", _socket.RemoteEndPoint.ToString());
                 }
                 else
                 {
-                    session.Initialize(socket);
-                    string address = session.GetRemoteAddress();
-                    Console.WriteLine("客户端连接 [{0}]", address);
+                    _socket.Close();
+                    Console.WriteLine("警告：连接已满！");
                 }
 
                 listen.BeginAccept(AcceptCallBack, null);

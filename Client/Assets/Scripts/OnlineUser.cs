@@ -29,7 +29,12 @@ public class OnlineUser : MonoBehaviour
 
     private void UserList(ActionParameter parameter)
     {
-        List<string> onlineList = parameter.GetValue<List<string>>("onlineList");
+        List<string> onlineList = null;
+        if (!parameter.TryGetValue("onlineList", ref onlineList))
+        {
+            return;
+        }
+
         onlineListUI.text = onlineList[0];
         for (int i = 1; i < onlineList.Count; i++)
         {

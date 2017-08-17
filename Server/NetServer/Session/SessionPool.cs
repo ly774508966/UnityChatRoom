@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Concurrent;
-using NetServer.Session;
 
 namespace NetServer.Session
 {

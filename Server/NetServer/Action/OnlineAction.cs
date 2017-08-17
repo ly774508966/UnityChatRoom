@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NetServer.Data;
 using NetServer.Session;
 
@@ -15,11 +16,6 @@ namespace NetServer.Action
             return true;
         }
 
-        public override object Clone()
-        {
-            return new OnlineAction();
-        }
-
         public override bool Process(ActionParameter parameter)
         {
             List<string> onlineList = new List<string>();
@@ -27,7 +23,7 @@ namespace NetServer.Action
             {
                 onlineList.Add(session.GetRemoteAddress());
             }
-            DynamicBuffer buffer = new DynamicBuffer(0);
+            DynamicBuffer buffer = new DynamicBuffer();
             buffer.WriteObject(onlineList);
             DataPackage packet = new DataPackage(buffer, 100);
             Session.Send(packet);

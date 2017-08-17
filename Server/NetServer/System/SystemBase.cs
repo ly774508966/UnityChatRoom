@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using NetServer.Action;
 
-namespace NetServer.System
+namespace NetServer.NetSystem
 {
     /// <summary>
     /// 系统基类

@@ -42,6 +42,12 @@ namespace NetServer.Action
             Packet = null;
         }
 
-        public abstract object Clone();
+        /// <summary>
+        /// 克隆此对象
+        /// </summary>
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 }

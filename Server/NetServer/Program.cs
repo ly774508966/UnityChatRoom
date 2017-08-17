@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-
-using NetServer.Action;
-using NetServer.System;
-using System.Reflection;
 
 namespace NetServer
 {
@@ -45,7 +40,7 @@ namespace NetServer
             }*/
 
             Server server = new Server();
-            server.StartServer("0.0.0.0", 25565);
+            server.StartServer("127.0.0.1", 25565);
 
             while (true)
             {

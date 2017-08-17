@@ -74,8 +74,11 @@ public class ActionHandler : MonoBehaviour
     /// </summary>
     private void HandleInvoke(ActionParameter parameter)
     {
-        int handleType = parameter.GetValue<int>(ACTIONTYPE);
-        handles[handleType](parameter);
+        int handleType = 0;
+        if (parameter.TryGetValue(ACTIONTYPE, ref handleType))
+        {
+            handles[handleType](parameter);
+        }
     }
 
     /// <summary>

@@ -67,7 +67,7 @@ public class NetClient : MonoBehaviour
             Connect();
     }
 
-    private void OnDestroy()
+    private void OnApplicationQuit()
     {
         //游戏结束关闭套接字
         if (session != null && session.isUse)

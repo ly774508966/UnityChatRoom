@@ -20,15 +20,10 @@ namespace NetServer.Action
             return false;
         }
 
-        public override object Clone()
-        {
-            return new InformAction();
-        }
-
         public override bool Process(ActionParameter parameter)
         {
             string message = "【系统通知】 " + parameter.GetValue<string>("message");
-            DynamicBuffer buffer = new DynamicBuffer(0);
+            DynamicBuffer buffer = new DynamicBuffer();
             buffer.WriteValue(message);
             DataPackage packet = new DataPackage(buffer, 100);
             foreach (var session in SessionClientPool.GetOnlineSession())
